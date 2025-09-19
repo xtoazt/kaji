@@ -77,7 +77,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (username: string, password: string) => {
     try {
-      const response = await post('/users/login', { username, password });
+      const response = await post('/auth/login', { username, password });
       
       const { token: newToken, user: userData } = response;
       
@@ -95,8 +95,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const register = async (username: string, email: string, password: string) => {
     try {
-      await post('/users/register', { username, email, password });
-      toast.success('Registration successful! Please log in.');
+      const response = await post('/auth/register', { username, email, password });
+      
+      const { token: newToken, user: userData } = response;
+      
+      setToken(newToken);
+      setUser(userData);
+      
+      localStorage.setItem('token', newToken);
+      localStorage.setItem('user', JSON.stringify(userData));
+      
+      toast.success('Registration successful!');
     } catch (error) {
       throw error;
     }
