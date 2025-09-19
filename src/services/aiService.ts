@@ -71,16 +71,17 @@ class AIService {
         }
       );
 
-      const choice = response.data.choices[0];
+      const data = response.data as any;
+      const choice = data.choices[0];
       return {
         content: choice.message.content,
         confidence: 0.85, // Default confidence, could be enhanced with model-specific logic
-        model: response.data.model,
-        usage: response.data.usage
+        model: data.model,
+        usage: data.usage
       };
     } catch (error) {
       logger.error('OpenRouter API request failed', error);
-      throw new Error(`AI service request failed: ${error.message}`);
+      throw new Error(`AI service request failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
 

@@ -13,7 +13,7 @@ const store: RateLimitStore = {};
 const WINDOW_MS = parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'); // 15 minutes
 const MAX_REQUESTS = parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100');
 
-export const rateLimiter = (req: Request, res: Response, next: NextFunction) => {
+export const rateLimiter = (req: Request, res: Response, next: NextFunction): void => {
   const key = req.ip || 'unknown';
   const now = Date.now();
   
@@ -53,11 +53,12 @@ export const rateLimiter = (req: Request, res: Response, next: NextFunction) => 
       method: req.method
     });
 
-    return res.status(429).json({
+    res.status(429).json({
       error: 'Too Many Requests',
       message: 'Rate limit exceeded. Please try again later.',
       retryAfter: Math.ceil((resetTime - now) / 1000)
     });
+    return;
   }
 
   next();

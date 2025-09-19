@@ -133,7 +133,7 @@ router.post('/scan/:versionId', asyncHandler(async (req: Request, res: Response)
     WHERE chromeos_version_id = $1 AND is_public = true
   `;
   const exploitsResult = await db.query(exploitsQuery, [versionId]);
-  const existingExploits = exploitsResult.rows.map(e => `${e.title}: ${e.description}`);
+  const existingExploits = exploitsResult.rows.map((e: any) => `${e.title}: ${e.description}`);
 
   // Use AI to find new vulnerabilities
   const newVulnerabilities = await aiService.findNewVulnerabilities(
@@ -191,7 +191,7 @@ router.put('/config', asyncHandler(async (req: Request, res: Response) => {
   const configContext = {
     config_key: key,
     config_value: value,
-    updated_by: req.user.id,
+    updated_by: req.user?.id,
     updated_at: new Date().toISOString()
   };
 
@@ -200,7 +200,7 @@ router.put('/config', asyncHandler(async (req: Request, res: Response) => {
   logger.info('System configuration updated', {
     key,
     value,
-    updatedBy: req.user.id
+    updatedBy: req.user?.id
   });
 
   res.json({
@@ -279,7 +279,7 @@ router.patch('/ai-training/:id/validate', asyncHandler(async (req: Request, res:
   logger.info('AI training data validation updated', {
     trainingDataId: id,
     isValidated: is_validated,
-    updatedBy: req.user.id
+    updatedBy: req.user?.id
   });
 
   res.json(result.rows[0]);
@@ -368,7 +368,7 @@ router.patch('/users/:id/role', asyncHandler(async (req: Request, res: Response)
   logger.info('User role updated', {
     userId: id,
     newRole: role,
-    updatedBy: req.user.id
+    updatedBy: req.user?.id
   });
 
   res.json(result.rows[0]);

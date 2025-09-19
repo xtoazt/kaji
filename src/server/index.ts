@@ -56,7 +56,7 @@ app.get('/health', async (req, res) => {
     res.status(500).json({
       status: 'unhealthy',
       timestamp: new Date().toISOString(),
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });

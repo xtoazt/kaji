@@ -123,6 +123,7 @@ export interface CreateExploitRequest {
 
 export interface UpdateExploitRequest extends Partial<CreateExploitRequest> {
   id: string;
+  [key: string]: any;
 }
 
 export interface CreateUserReportRequest {
@@ -164,4 +165,13 @@ export interface VulnerabilityScanResult {
   low_count: number;
   new_vulnerabilities: string[];
   scan_date: Date;
+}
+
+// Extend Express Request type to include user
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User;
+    }
+  }
 }

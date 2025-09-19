@@ -15,31 +15,40 @@
   },
   "dependencies": {
     "@vercel/node": "^3.0.0",
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "helmet": "^7.1.0",
-    "dotenv": "^16.3.1",
-    "pg": "^8.11.3",
     "axios": "^1.6.2",
-    "winston": "^3.11.0",
-    "joi": "^17.11.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2"
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/cors": "^2.8.17",
-    "@types/node": "^20.10.5",
-    "@types/pg": "^8.10.9",
+    "@types/axios": "^0.9.36",
     "@types/bcryptjs": "^2.4.6",
-    "@types/jsonwebtoken": "^9.0.5",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.23",
+    "@types/helmet": "^0.0.48",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.19.17",
     "@types/node-cron": "^3.0.11",
-    "typescript": "^4.9.5",
-    "ts-node": "^10.9.2",
+    "@types/pg": "^8.15.5",
+    "@types/winston": "^2.4.4",
+    "concurrently": "^8.2.2",
     "nodemon": "^3.0.2",
-    "concurrently": "^8.2.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5"
   },
-  "keywords": ["chromeos", "vulnerability", "security", "ai", "exploit"],
+  "keywords": [
+    "chromeos",
+    "vulnerability",
+    "security",
+    "ai",
+    "exploit"
+  ],
   "author": "Kaji Team",
   "license": "MIT"
 }

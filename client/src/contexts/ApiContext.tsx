@@ -1,14 +1,14 @@
 import React, { createContext, useContext, ReactNode } from 'react';
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import toast from 'react-hot-toast';
 
 interface ApiContextType {
-  api: AxiosInstance;
-  get: <T = any>(url: string, config?: AxiosRequestConfig) => Promise<T>;
-  post: <T = any>(url: string, data?: any, config?: AxiosRequestConfig) => Promise<T>;
-  put: <T = any>(url: string, data?: any, config?: AxiosRequestConfig) => Promise<T>;
-  patch: <T = any>(url: string, data?: any, config?: AxiosRequestConfig) => Promise<T>;
-  delete: <T = any>(url: string, config?: AxiosRequestConfig) => Promise<T>;
+  api: any;
+  get: <T = any>(url: string, config?: any) => Promise<T>;
+  post: <T = any>(url: string, data?: any, config?: any) => Promise<T>;
+  put: <T = any>(url: string, data?: any, config?: any) => Promise<T>;
+  patch: <T = any>(url: string, data?: any, config?: any) => Promise<T>;
+  delete: <T = any>(url: string, config?: any) => Promise<T>;
 }
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
@@ -39,6 +39,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     (config) => {
       const token = localStorage.getItem('token');
       if (token) {
+        config.headers = config.headers || {};
         config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
@@ -93,29 +94,29 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     }
   );
 
-  const get = async <T = any>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+  const get = async <T = any>(url: string, config?: any): Promise<T> => {
     const response = await api.get(url, config);
-    return response.data;
+    return response.data as T;
   };
 
-  const post = async <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> => {
+  const post = async <T = any>(url: string, data?: any, config?: any): Promise<T> => {
     const response = await api.post(url, data, config);
-    return response.data;
+    return response.data as T;
   };
 
-  const put = async <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> => {
+  const put = async <T = any>(url: string, data?: any, config?: any): Promise<T> => {
     const response = await api.put(url, data, config);
-    return response.data;
+    return response.data as T;
   };
 
-  const patch = async <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> => {
+  const patch = async <T = any>(url: string, data?: any, config?: any): Promise<T> => {
     const response = await api.patch(url, data, config);
-    return response.data;
+    return response.data as T;
   };
 
-  const deleteRequest = async <T = any>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+  const deleteRequest = async <T = any>(url: string, config?: any): Promise<T> => {
     const response = await api.delete(url, config);
-    return response.data;
+    return response.data as T;
   };
 
   const value: ApiContextType = {

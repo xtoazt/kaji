@@ -112,7 +112,7 @@ async function performWeeklyVulnerabilityScan() {
         WHERE chromeos_version_id = $1 AND is_public = true
       `;
       const exploits = await db.query(exploitsQuery, [version.id]);
-      const existingExploits = exploits.rows.map(e => `${e.title}: ${e.description}`);
+      const existingExploits = exploits.rows.map((e: any) => `${e.title}: ${e.description}`);
 
       // Use AI to find new vulnerabilities
       const newVulnerabilities = await aiService.findNewVulnerabilities(
@@ -206,7 +206,7 @@ async function updateAIKnowledgeBase() {
         } catch (error) {
           logger.error('Error updating AI knowledge for exploit', {
             exploitId: exploit.id,
-            error: error.message
+            error: error instanceof Error ? error.message : 'Unknown error'
           });
         }
       }
@@ -250,7 +250,7 @@ async function analyzeNewChromeOSVersion(version: string) {
   } catch (error) {
     logger.error('Error analyzing new ChromeOS version', {
       version,
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 }
