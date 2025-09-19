@@ -25,14 +25,14 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Health check endpoint
 app.get('/health', async (req, res) => {
   try {
-    res.json({
+    return res.json({
       status: 'healthy',
       timestamp: new Date().toISOString(),
       version: '1.0.0',
       environment: process.env.NODE_ENV || 'production'
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: 'unhealthy',
       timestamp: new Date().toISOString(),
       error: error instanceof Error ? error.message : 'Unknown error'
@@ -64,7 +64,7 @@ app.post('/api/v1/ai/chat', async (req, res) => {
     });
   } catch (error) {
     console.error('AI chat error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
@@ -94,7 +94,7 @@ app.get('/api/v1/exploits', async (req, res) => {
     });
   } catch (error) {
     console.error('Exploits fetch error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
@@ -130,7 +130,7 @@ app.get('/api/v1/exploits/:id', async (req, res) => {
     });
   } catch (error) {
     console.error('Exploit fetch error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
@@ -163,7 +163,7 @@ app.post('/api/v1/exploits', async (req, res) => {
     });
   } catch (error) {
     console.error('Exploit creation error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
@@ -206,7 +206,7 @@ app.put('/api/v1/exploits/:id', async (req, res) => {
     });
   } catch (error) {
     console.error('Exploit update error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
@@ -233,7 +233,7 @@ app.delete('/api/v1/exploits/:id', async (req, res) => {
     });
   } catch (error) {
     console.error('Exploit deletion error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
@@ -303,7 +303,7 @@ app.post('/api/v1/auth/register', async (req, res) => {
     });
   } catch (error) {
     console.error('Registration error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
@@ -364,7 +364,7 @@ app.post('/api/v1/auth/login', async (req, res) => {
     });
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
@@ -379,7 +379,7 @@ app.use(errorHandler);
 
 // 404 handler
 app.use('*', (req, res) => {
-  res.status(404).json({
+  return res.status(404).json({
     error: 'Not Found',
     message: `Route ${req.originalUrl} not found`,
     timestamp: new Date().toISOString()
