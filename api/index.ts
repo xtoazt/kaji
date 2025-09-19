@@ -40,6 +40,50 @@ app.get('/health', async (req, res) => {
   }
 });
 
+// Simple AI chat endpoint
+app.post('/api/v1/ai/chat', async (req, res) => {
+  try {
+    const { message, context } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Message is required'
+      });
+    }
+
+    // Simple response for now (you can integrate with OpenRouter later)
+    const response = {
+      response: `I understand you're asking about: "${message}". This is a demo response. The full AI integration with OpenRouter will be implemented soon.`,
+      timestamp: new Date().toISOString()
+    };
+
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// Exploits endpoint
+app.get('/api/v1/exploits', async (req, res) => {
+  try {
+    // Return empty array for now
+    res.json({
+      exploits: [],
+      total: 0,
+      message: 'No exploits found in database yet'
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 // Setup routes
 setupRoutes(app);
 
