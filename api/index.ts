@@ -22,6 +22,16 @@ app.use(rateLimiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Serve static files without authentication
+app.get('/manifest.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.sendFile('manifest.json', { root: 'public' });
+});
+
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile('favicon.ico', { root: 'public' });
+});
+
 // Health check endpoint
 app.get('/health', async (req, res) => {
   try {
