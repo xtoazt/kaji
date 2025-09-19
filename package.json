@@ -11,8 +11,7 @@
     "build:server": "tsc -p tsconfig.server.json",
     "build:client": "cd client && npm run build",
     "start": "node dist/server.js",
-    "install:all": "npm install && cd client && npm install",
-    "vercel-build": "npm run build:client"
+    "install:all": "npm install && cd client && npm install"
   },
   "dependencies": {
     "@vercel/node": "^3.0.0",
