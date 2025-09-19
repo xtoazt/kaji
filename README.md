@@ -12,9 +12,10 @@ Kaji is an advanced AI-powered platform for ChromeOS vulnerability research and 
 
 ### 🔍 Comprehensive Database
 - **Exploit Management**: Store and manage ChromeOS exploits with detailed metadata
-- **Version Tracking**: Track vulnerabilities across different ChromeOS versions
+- **Version Tracking**: Track vulnerabilities across different ChromeOS versions (2018-2024)
 - **CVE Integration**: Link exploits to CVE identifiers and CVSS scores
 - **Categorization**: Organize vulnerabilities by type and severity
+- **Historical Data**: Pre-populated with exploits from [Corellium](https://github.com/Burvyn/Corellium) and [ext-remover](https://github.com/3kh0/ext-remover)
 
 ### 💬 Interactive AI Assistant
 - **Chat Interface**: Ask questions about ChromeOS security and vulnerabilities
@@ -65,6 +66,7 @@ Kaji is an advanced AI-powered platform for ChromeOS vulnerability research and 
 - Docker (optional)
 - Neon Database account
 - OpenRouter API key
+- Vercel account (for deployment)
 
 ### Environment Setup
 
@@ -111,6 +113,28 @@ Kaji is an advanced AI-powered platform for ChromeOS vulnerability research and 
    ```
 
 This will start both the backend server (port 3001) and frontend development server (port 3000).
+
+### Vercel Deployment (Recommended)
+
+1. **Deploy to Vercel**
+   ```bash
+   # Install Vercel CLI
+   npm i -g vercel
+   
+   # Deploy
+   vercel
+   ```
+
+2. **Set Environment Variables**
+   - Go to your Vercel dashboard
+   - Add all environment variables from `env.example`
+   - Redeploy to apply changes
+
+3. **Access Your Application**
+   - Frontend: `https://your-app.vercel.app`
+   - API: `https://your-app.vercel.app/api/v1`
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ### Docker Deployment
 

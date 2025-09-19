@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 import { logger } from '../utils/logger';
 import { db } from '../database/connection';
 import { setupRoutes } from './routes';
-import { setupCronJobs } from './cron';
+// Cron jobs disabled for Vercel deployment
+// import { setupCronJobs } from './cron';
 import { errorHandler } from './middleware/errorHandler';
 import { rateLimiter } from './middleware/rateLimiter';
 
@@ -100,8 +101,8 @@ async function startServer() {
     // Initialize database schema if needed
     await db.initializeSchema();
 
-    // Setup cron jobs for automated tasks
-    setupCronJobs();
+    // Cron jobs disabled for Vercel deployment
+    // setupCronJobs();
 
     // Start the server
     app.listen(PORT, () => {

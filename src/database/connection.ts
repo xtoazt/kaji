@@ -11,7 +11,7 @@ class DatabaseConnection {
       ssl: {
         rejectUnauthorized: false
       },
-      max: 20,
+      max: process.env.NODE_ENV === 'production' ? 5 : 20,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 2000,
     });
@@ -84,6 +84,17 @@ class DatabaseConnection {
       
       await this.query(schema);
       logger.info('Database schema initialized successfully');
+
+      // Seed initial exploit data
+      try {
+        const seedPath = path.join(__dirname, 'seed_exploits.sql');
+        const seedData = fs.readFileSync(seedPath, 'utf8');
+        await this.query(seedData);
+        logger.info('Database seeded with initial exploit data');
+      } catch (seedError) {
+        logger.warn('Failed to seed database with initial data', seedError);
+        // Don't throw error for seeding failures
+      }
     } catch (error) {
       logger.error('Failed to initialize database schema', error);
       throw error;
