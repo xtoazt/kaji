@@ -47,6 +47,9 @@ AUTO_UPDATE_ENABLED=true
 CORS_ORIGIN=https://your-domain.vercel.app
 RATE_LIMIT_WINDOW_MS=900000
 RATE_LIMIT_MAX_REQUESTS=100
+
+# Frontend Configuration
+REACT_APP_API_URL=/api/v1
 ```
 
 ### Deployment Steps

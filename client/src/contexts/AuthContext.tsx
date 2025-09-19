@@ -72,7 +72,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsLoading(false);
     };
 
-    initializeAuth();
+    // Add timeout to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    initializeAuth().finally(() => {
+      clearTimeout(timeoutId);
+    });
   }, [get]);
 
   const login = async (username: string, password: string) => {

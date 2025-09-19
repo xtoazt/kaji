@@ -371,6 +371,49 @@ app.post('/api/v1/auth/login', async (req, res) => {
   }
 });
 
+// User profile endpoint
+app.get('/api/v1/users/profile', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+        message: 'No valid token provided'
+      });
+    }
+
+    const token = authHeader.substring(7);
+    const jwt = await import('jsonwebtoken');
+    
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as any;
+      const { db } = await import('../src/database/connection');
+      
+      const result = await db.query('SELECT id, username, email, role, created_at, updated_at FROM users WHERE id = $1', [decoded.userId]);
+      
+      if (result.rows.length === 0) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: 'User not found'
+        });
+      }
+
+      return res.json(result.rows[0]);
+    } catch (jwtError) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+        message: 'Invalid token'
+      });
+    }
+  } catch (error) {
+    console.error('Profile fetch error:', error);
+    return res.status(500).json({
+      error: 'Internal Server Error',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 // Setup routes
 setupRoutes(app);
 
