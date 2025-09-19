@@ -10,7 +10,7 @@
     "build": "npm run build:server && npm run build:client",
     "build:server": "tsc -p tsconfig.server.json",
     "build:client": "cd client && npm run build",
-    "vercel-build": "cd client && npm install --legacy-peer-deps && npm run build && cp -r build/* ../",
+    "vercel-build": "npm run build:client && cp -r client/build/* ./",
     "start": "node dist/server.js",
     "install:all": "npm install && cd client && npm install"
   },
