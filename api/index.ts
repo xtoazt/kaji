@@ -57,7 +57,7 @@ app.post('/api/v1/ai/chat', async (req, res) => {
     
     const response = await aiService.answerUserQuestion(message, context);
 
-    res.json({
+    return res.json({
       response,
       timestamp: new Date().toISOString(),
       model: 'gpt-4o'
@@ -88,7 +88,7 @@ app.get('/api/v1/exploits', async (req, res) => {
       LIMIT 100
     `);
 
-    res.json({
+    return res.json({
       exploits: result.rows,
       total: result.rows.length
     });
@@ -125,7 +125,7 @@ app.get('/api/v1/exploits/:id', async (req, res) => {
       });
     }
 
-    res.json({
+    return res.json({
       exploit: result.rows[0]
     });
   } catch (error) {
@@ -157,7 +157,7 @@ app.post('/api/v1/exploits', async (req, res) => {
       RETURNING *
     `, [title, description, severity, chromeos_version, exploit_code, references, req.user?.id || null]);
 
-    res.status(201).json({
+    return res.status(201).json({
       exploit: result.rows[0],
       message: 'Exploit created successfully'
     });
@@ -200,7 +200,7 @@ app.put('/api/v1/exploits/:id', async (req, res) => {
       });
     }
 
-    res.json({
+    return res.json({
       exploit: result.rows[0],
       message: 'Exploit updated successfully'
     });
@@ -228,7 +228,7 @@ app.delete('/api/v1/exploits/:id', async (req, res) => {
       });
     }
 
-    res.json({
+    return res.json({
       message: 'Exploit deleted successfully'
     });
   } catch (error) {
@@ -291,7 +291,7 @@ app.post('/api/v1/auth/register', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    res.status(201).json({
+    return res.status(201).json({
       user: {
         id: user.id,
         username: user.username,
@@ -352,7 +352,7 @@ app.post('/api/v1/auth/login', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    res.json({
+    return res.json({
       user: {
         id: user.id,
         username: user.username,

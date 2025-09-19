@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { db } from '../../database/connection';
 import { asyncHandler, createError } from '../middleware/errorHandler';
 import { logger } from '../../utils/logger';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const router = Router();
