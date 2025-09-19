@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaji - ChromeOS Security Research</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .status {
+            background-color: #2563eb;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .loading {
+            text-align: center;
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🛡️ Kaji - ChromeOS Security Research</h1>
+        <p>AI-powered ChromeOS vulnerability research and analysis platform</p>
+    </div>
+    
+    <div class="status">
+        <h2>✅ Site is Live!</h2>
+        <p>Static file serving is working correctly.</p>
+    </div>
+    
+    <div class="loading">
+        <h3>Loading React Application...</h3>
+        <p>If you see this message, the React app is not loading properly.</p>
+        <p>This is a fallback static page to test Vercel deployment.</p>
+    </div>
+    
+    <script>
+        // Redirect to the React app after 3 seconds
+        setTimeout(() => {
+            window.location.href = '/client/';
+        }, 3000);
+    </script>
+</body>
+</html>
